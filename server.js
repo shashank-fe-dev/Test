@@ -145,46 +145,46 @@ app.get('/api/force-browser', (req, res) => {
 //   `);
 // });
 
-// // Health check endpoint
-// app.get('/health', (req, res) => {
-//   res.json({
-//     status: 'healthy',
-//     timestamp: new Date().toISOString(),
-//     uptime: process.uptime()
-//   });
-// });
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
 
-// // 404 handler
-// app.use((req, res) => {
-//   res.status(404).json({
-//     error: 'Endpoint not found',
-//     message: `Route ${req.method} ${req.path} not found`,
-//     availableEndpoints: [
-//       'GET /',
-//       'GET /api/force-browser?redirectUrl=<url>',
-//       'GET /health'
-//     ]
-//   });
-// });
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Endpoint not found',
+    message: `Route ${req.method} ${req.path} not found`,
+    availableEndpoints: [
+      'GET /',
+      'GET /api/force-browser?redirectUrl=<url>',
+      'GET /health'
+    ]
+  });
+});
 
-// // Error handling middleware
-// app.use((err, req, res, next) => {
-//   console.error('Error:', err);
-//   res.status(500).json({
-//     error: 'Internal server error',
-//     message: 'Something went wrong on the server'
-//   });
-// });
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(500).json({
+    error: 'Internal server error',
+    message: 'Something went wrong on the server'
+  });
+});
 
-// // Start server
-// app.listen(PORT, () => {
-//   console.log(`🚀 Server running on http://localhost:${PORT}`);
-//   console.log(`📋 Available endpoints:`);
-//   console.log(`   GET  http://localhost:${PORT}/`);
-//   console.log(`   GET  http://localhost:${PORT}/api/force-browser?redirectUrl=<url>`);
-//   console.log(`   GET  http://localhost:${PORT}/health`);
-//   console.log(`\n💡 Example usage:`);
-//   console.log(`   http://localhost:${PORT}/api/force-browser?redirectUrl=https://instagram.com`);
-// });
+// Start server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`📋 Available endpoints:`);
+  console.log(`   GET  http://localhost:${PORT}/`);
+  console.log(`   GET  http://localhost:${PORT}/api/force-browser?redirectUrl=<url>`);
+  console.log(`   GET  http://localhost:${PORT}/health`);
+  console.log(`\n💡 Example usage:`);
+  console.log(`   http://localhost:${PORT}/api/force-browser?redirectUrl=https://instagram.com`);
+});
 
 module.exports = app;
